@@ -36,7 +36,7 @@ public class ThreescaleClient {
 		this.whitelist.add(appId);
 	}
 
-	
+
 	public AuthorizeResponse authrep(String serviceToken, String serviceId, ParameterMap metrics) throws ServerError {
 		AuthorizeResponse response;
 		try {
@@ -47,7 +47,7 @@ public class ThreescaleClient {
 			// in this case, the metrics/reporting information will be lost.
 			if (e.getMessage().contains("Connection refused") && this.whitelist.contains(metrics.getStringValue("app_id"))) {
 				// Fake the response, since we didn't get one from the 3scale server.
-				response = new AuthorizeResponse(200, "<response><authorized>true</authorized><plan>baz</plan></response>");
+				response = new AuthorizeResponse(200, "<status><authorized>true</authorized><plan>Basic</plan></status>");
 				return response;
 			} else {
 				throw e;
